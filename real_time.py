@@ -11,6 +11,23 @@ import librosa.display
 
 model = load_model("cough_detector.model")
 
+import microphones
+desc, mics, indices = microphones.list_microphones()
+print(mics)
+MICROPHONE_INDEX = indices[0]
+
+
+# Find description that matches the mic index
+mic_desc = ""
+for k in range(len(indices)):
+    
+    i = indices[k]
+    #print(i)
+    if (i==MICROPHONE_INDEX):
+        print(i)
+        mic_desc = mics[k]
+print("Using mic: %s" % mic_desc)
+
 # constants
 CHUNK = 55125            # samples per frame
 FORMAT = pyaudio.paInt16     # audio format (bytes per sample?)
