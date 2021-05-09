@@ -9,7 +9,7 @@ import pylab
 import cv2
 import librosa.display
 
-#cough_model = load_model("cough_detector.model")
+model = load_model("cough_detector.model")
 
 # constants
 CHUNK = 55125            # samples per frame
@@ -70,5 +70,7 @@ while True:
     new_array = cv2.resize(img_array, (224, 224))  # resize to normalize data size
     new_array=np.array(new_array).reshape(-1, 224, 224, 3)
     new_array = np.array(new_array, dtype="float32")
-    print(new_array.shape)
-    
+    #print(new_array.shape)
+    (cough, notcough) = model.predict(new_array)[0]
+    print("cough:",cough)
+    print("notcough:",notcough)
